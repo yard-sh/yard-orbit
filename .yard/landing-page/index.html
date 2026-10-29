@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orbit: the CRM your team keeps up to date</title>
+    <meta
+      name="description"
+      content="Contacts, companies and a drag-and-drop pipeline, with tasks, timelines and a live dashboard. Free for one, Pro for your whole team."
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- The app and this page share one theme setting (same origin, same
+         key), so a choice made in either one carries over. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("orbit.theme");
+          if (
+            t === "dark" ||
+            ((!t || t === "system") &&
+              matchMedia("(prefers-color-scheme: dark)").matches)
+          ) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <!--
+      Yard injects embed.js into every landing page it serves, hosted and
+      under yard dev. It exposes window.yard.project and wires [data-yard]
+      text bindings, [data-yard-when] visibility and [data-action] checkout
+      and trial buttons. Bound elements keep static copy underneath for
+      fields the dashboard may leave empty.
+
+      Relative links only: the page serves under /<slug>/ (and under
+      /<slug>/@<sandbox>/ in a sandbox), so "app/" is always this project's
+      app. The app requires sign-in, so linking to it signs people in.
+    -->
+    <header class="nav" id="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="#top" aria-label="Orbit home">
+          <span class="brand-mark"
+            ><img src="orbit.svg" alt="" width="18" height="18"
+          /></span>
+          <span>Orbit</span>
+        </a>
+        <nav class="nav-links" aria-label="Sections">
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div class="nav-actions">
+          <button
+            class="icon-btn"
+            id="theme"
+            type="button"
+            aria-label="Toggle theme"
+          >
+            <svg viewBox="0 0 24 24" class="i i-sun">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              />
+            </svg>
+            <svg viewBox="0 0 24 24" class="i i-moon">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+            </svg>
+          </button>
+          <a class="btn btn-ghost btn-sm" href="app/" data-signed-out
+            >Sign in</a
+          >
+          <a class="btn btn-primary btn-sm" href="app/" data-open-app
+            >Get started</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ------------------------------------------------------------- hero -->
+      <section class="hero">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="wrap hero-copy">
+          <a class="pill" href="#features"
+            ><span class="pill-dot"></span>Pipeline, tasks and timelines in one
+            place <span aria-hidden="true">→</span></a
+          >
+          <h1>
+            The CRM your team
+            <span class="muted">actually keeps up to date.</span>
+          </h1>
+          <p class="lede" data-yard="tagline">
+            Contacts, companies and a drag-and-drop pipeline, with every call
+            and note on one timeline. Fast enough that nobody puts off updating
+            it.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary btn-lg" href="app/" data-open-app
+              >Start free</a
+            >
+            <a class="btn btn-outline btn-lg" href="#pricing">See pricing</a>
+          </div>
+          <p class="fine">Free for one person. No card needed.</p>
+        </div>
+
+        <!-- A still of the pipeline board, drawn in HTML so it's crisp at
+             any size and follows the theme. -->
+        <div class="wrap">
+          <div
+            class="shot"
+            role="img"
+            aria-label="Orbit's pipeline board with deals in five stages"
+          >
+            <div class="shot-bar">
+              <span></span><span></span><span></span>
+              <div class="shot-url">orbit / deals</div>
+            </div>
+            <div class="shot-body">
+              <aside class="shot-side" aria-hidden="true">
+                <div class="side-ws">
+                  <span class="brand-mark sm"
+                    ><img src="orbit.svg" alt="" width="12" height="12" /></span
+                  >Acme Sales
+                </div>
+                <div class="side-item">Dashboard</div>
+                <div class="side-item">Contacts</div>
+                <div class="side-item">Companies</div>
+                <div class="side-item on">Deals</div>
+                <div class="side-item">Tasks <b>3</b></div>
+              </aside>
+              <div class="board" id="board" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------------------------------------------- features -->
+      <section class="section" id="features">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Features</p>
+            <h2>Everything a sales team needs. Nothing it has to babysit.</h2>
+            <p class="section-lede">
+              Orbit keeps the essentials sharp instead of bolting on a hundred
+              tabs nobody opens.
+            </p>
+          </div>
+          <div class="bento">
+            <article class="tile tile-wide">
+              <div class="tile-icon">
+                <svg viewBox="0 0 24 24" class="i">
+                  <rect x="3" y="4" width="5" height="14" rx="1" />
+                  <rect x="10" y="4" width="5" height="9" rx="1" />
+                  <rect x="17" y="4" width="4" height="11" rx="1" />
+                </svg>
+              </div>
+              <h3>A pipeline you can drag</h3>
+              <p>
+                Move deals from Lead to Won on a board. Every move lands on the
+                deal's timeline, and closed deals feed the revenue chart on
+                their own.
+              </p>
+              <div class="mini-stages" aria-hidden="true">
+                <span style="--c: var(--slate)">Lead</span
+                ><span style="--c: var(--sky)">Qualified</span
+                ><span style="--c: var(--violet)">Proposal</span
+                ><span style="--c: var(--amber)">Negotiation</span
+                ><span style="--c: var(--emerald)">Won</span>
+              </div>
+            </article>
+            <article class="tile">
+              <div class="tile-icon">
+                <svg viewBox="0 0 24 24" class="i">
+                  <circle cx="9" cy="8" r="3.5" />
+                  <path
+                    d="M3 20a6 6 0 0 1 12 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3 6"
+                  />
+                </svg>
+              </div>
+              <h3>Contacts and companies</h3>
+              <p>
+                People, the companies they work for, and the deals between you,
+                linked both ways.
+              </p>
+            </article>
+            <article class="tile">
+              <div class="tile-icon">
+                <svg viewBox="0 0 24 24" class="i">
+                  <path d="M4 6h16M4 12h10M4 18h7" />
+                </svg>
+              </div>
+              <h3>One timeline per record</h3>
+              <p>
+                Notes, calls, emails and meetings, plus every stage change. A
+                note on a deal shows on its contact and company too.
+              </p>
+            </article>
+            <article class="tile">
+              <div class="tile-icon">
+                <svg viewBox="0 0 24 24" class="i">
+                  <rect x="4" y="4" width="16" height="16" rx="3" />
+                  <path d="m8.5 12 2.5 2.5 4.5-5" />
+                </svg>
+              </div>
+              <h3>Tasks with due dates</h3>
+              <p>
+                Follow-ups for you or a teammate, grouped into overdue, today
+                and upcoming.
+              </p>
+            </article>
+            <article class="tile">
+              <div class="tile-icon">
+                <svg viewBox="0 0 24 24" class="i">
+                  <circle cx="12" cy="12" r="9" />
+                  <path
+                    d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"
+                  />
+                </svg>
+              </div>
+              <h3>Workspaces and roles</h3>
+              <p>
+                Invite your team with one link. Owners and admins manage people;
+                everyone works every record.
+              </p>
+            </article>
+            <article class="tile tile-full">
+              <div class="tile-icon">
+                <svg viewBox="0 0 24 24" class="i">
+                  <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
+                </svg>
+              </div>
+              <h3>A dashboard that's always current</h3>
+              <p>
+                Open pipeline, weighted forecast, win rate and revenue won,
+                straight from your deals.
+              </p>
+              <div class="mini-bars" aria-hidden="true">
+                <span style="height: 34%"></span
+                ><span style="height: 78%"></span
+                ><span style="height: 8%"></span
+                ><span style="height: 52%"></span
+                ><span style="height: 30%"></span
+                ><span style="height: 64%"></span
+                ><span style="height: 92%"></span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------------------------------------------------------- pricing -->
+      <!-- Complete without JavaScript. landing.js fills names, prices and
+           features from window.yard.project.tiers, matched by tier key, so
+           the page never disagrees with checkout. -->
+      <section class="section section-muted" id="pricing">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Pricing</p>
+            <h2>Start free. Upgrade when your team does.</h2>
+            <p class="section-lede">
+              A workspace runs on its owner's plan, so one Pro subscription
+              covers everyone you invite.
+            </p>
+          </div>
+          <div class="toggle" id="interval" hidden>
+            <button
+              type="button"
+              class="toggle-opt is-on"
+              data-interval="monthly"
+              aria-pressed="true"
+            >
+              Monthly
+            </button>
+            <button
+              type="button"
+              class="toggle-opt"
+              data-interval="yearly"
+              aria-pressed="false"
+            >
+              Yearly <span class="save" data-save></span>
+            </button>
+          </div>
+          <div class="plans" id="plans">
+            <article class="plan" data-plan="free">
+              <h3 data-name>Free</h3>
+              <p class="plan-blurb" data-blurb>A full CRM for one person</p>
+              <p class="plan-price">
+                <span class="amount">$0</span><span class="per">forever</span>
+              </p>
+              <a class="btn btn-outline btn-block" href="app/" data-open-app
+                >Start free</a
+              >
+              <ul class="features" data-features>
+                <li>250 contacts</li>
+                <li>50 open deals</li>
+                <li>Pipeline board, tasks and timelines</li>
+                <li>Dashboard and reports</li>
+              </ul>
+            </article>
+            <article class="plan plan-pro" data-plan="pro">
+              <div class="plan-top">
+                <h3 data-name>Pro</h3>
+                <span class="badge">Most popular</span>
+              </div>
+              <p class="plan-blurb" data-blurb>For teams that sell together</p>
+              <p class="plan-price">
+                <span class="amount" data-amount>$12</span
+                ><span class="per" data-per>/ month</span>
+              </p>
+              <p class="plan-billed" data-billed hidden></p>
+              <div class="plan-actions" data-yard-when="not_owned">
+                <button
+                  class="btn btn-primary btn-block"
+                  type="button"
+                  data-action="checkout"
+                  data-tier-id="pro"
+                  data-interval="monthly"
+                  data-buy
+                >
+                  Get Pro
+                </button>
+                <button
+                  class="btn btn-outline btn-block"
+                  type="button"
+                  data-action="trial"
+                  data-trial
+                  hidden
+                >
+                  Start a 14-day free trial
+                </button>
+              </div>
+              <div data-yard-when="owned">
+                <a class="btn btn-primary btn-block" href="app/">Open Orbit</a>
+                <p class="plan-current" data-current hidden>
+                  This is your plan.
+                </p>
+              </div>
+              <ul class="features" data-features>
+                <li>Unlimited contacts and deals</li>
+                <li>Invite up to 25 teammates</li>
+                <li>Admin and member roles</li>
+                <li>Everything in Free</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- -------------------------------------------------------------- faq -->
+      <section class="section" id="faq">
+        <div class="wrap narrow">
+          <div class="section-head">
+            <p class="eyebrow">FAQ</p>
+            <h2>Questions, answered</h2>
+          </div>
+          <div class="faq">
+            <details>
+              <summary>Who pays when I invite my team?</summary>
+              <p>
+                Only the workspace owner. Limits follow the owner's plan, so one
+                Pro subscription covers everyone in the workspace. Teammates can
+                keep a free workspace of their own as well.
+              </p>
+            </details>
+            <details>
+              <summary>What happens when I hit a Free limit?</summary>
+              <p>
+                Nothing is lost. You can keep working with everything you have;
+                Orbit just asks you to upgrade before adding contact 251 or deal
+                51, or inviting someone.
+              </p>
+            </details>
+            <details>
+              <summary>Do I need a card for the trial?</summary>
+              <p>
+                No. The 14-day Pro trial starts without one. If you don't
+                subscribe, your workspace returns to the Free limits and keeps
+                all its data.
+              </p>
+            </details>
+            <details>
+              <summary>Can I leave a workspace I was invited to?</summary>
+              <p>
+                Yes, from Settings → Members. The records you own stay with the
+                workspace, and you keep your own workspace.
+              </p>
+            </details>
+            <details>
+              <summary>How do I sign in?</summary>
+              <p>
+                With your Yard account. Orbit never sees or stores a password.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------------------------------------------- closer -->
+      <section class="section">
+        <div class="wrap">
+          <div class="closer">
+            <h2>Give your pipeline some gravity.</h2>
+            <p>Start free in a minute. Bring the team when you're ready.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary btn-lg" href="app/" data-open-app
+                >Start free</a
+              >
+              <a class="btn btn-outline btn-lg" href="#pricing"
+                >Compare plans</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <a class="brand" href="#top"
+          ><span class="brand-mark sm"
+            ><img src="orbit.svg" alt="" width="12" height="12" /></span
+          >Orbit</a
+        >
+        <nav aria-label="Footer">
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a href="__yard/auth/logout?return=/" data-signed-in hidden
+            >Log out</a
+          >
+        </nav>
+        <p class="fine">Built on <a href="https://yard.sh">Yard</a>.</p>
+      </div>
+    </footer>
+
+    <script src="landing.js"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+import { cn } from "@/lib/utils";
+
+// Orbit's mark: a planet and the moon that goes around it.
+export function OrbitMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={cn("size-4", className)} aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+      <ellipse cx="12" cy="12" rx="10" ry="4.2" stroke="currentColor" strokeWidth="1.6" transform="rotate(-30 12 12)" />
+      <circle cx="20.2" cy="7.3" r="1.8" fill="currentColor" />
+    </svg>
+  );
+}

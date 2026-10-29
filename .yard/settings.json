@@ -1,0 +1,55 @@
+{
+  "version": 9,
+  "project_slug": "orbit",
+  "ignore_files": [],
+  "services": [
+    {
+      "dir": "app",
+      "name": "app",
+      "url": "/app",
+      "access": "authenticated",
+      "database_access": true
+    }
+  ],
+  "landing_page": {
+    "type": "custom",
+    "dir": ".yard/landing-page"
+  },
+  "pricing": {
+    "tiers": [
+      {
+        "key": "free",
+        "name": "Free",
+        "price_cents": 0,
+        "is_default": true,
+        "pricing_model": "one_time",
+        "description": "A full CRM for one person",
+        "features": [
+          "250 contacts",
+          "50 open deals",
+          "Pipeline board, tasks and timelines",
+          "Dashboard and reports"
+        ]
+      },
+      {
+        "key": "pro",
+        "name": "Pro",
+        "price_cents": 1200,
+        "pricing_model": "subscription",
+        "yearly_discount_percent": 20,
+        "description": "For teams that sell together",
+        "free_trial": {
+          "enabled": true,
+          "days": 14,
+          "requires_card": false
+        },
+        "features": [
+          "Unlimited contacts and deals",
+          "Invite up to 25 teammates",
+          "Admin and member roles",
+          "Everything in Free"
+        ]
+      }
+    ]
+  }
+}
