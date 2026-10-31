@@ -18,12 +18,12 @@ export interface Caller {
   entitlement: Me["entitlement"];
 }
 
-// Pro is the project owner, or a live purchase, subscription or trial of the
+// Pro is the project's team, or a live purchase, subscription or trial of the
 // tier keyed PRO_TIER. Anything else, including a signed-in visitor with no
 // purchase at all, is Free.
 function planOf(headers: Headers): Plan {
   const entitlement = headers.get("X-Yard-Entitlement") || "none";
-  if (entitlement === "owner") return "pro";
+  if (entitlement === "team") return "pro";
   if (entitlement !== "active" && entitlement !== "trial") return "free";
   return headers.get("X-Yard-Tier-Key") === PRO_TIER ? "pro" : "free";
 }

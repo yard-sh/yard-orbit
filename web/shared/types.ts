@@ -22,7 +22,7 @@ export interface Me {
   user: User;
   // This person's own plan: what they bought, not any workspace's.
   plan: Plan;
-  entitlement: "none" | "trial" | "active" | "owner";
+  entitlement: "none" | "trial" | "active" | "team";
   workspaces: WorkspaceSummary[];
 }
 

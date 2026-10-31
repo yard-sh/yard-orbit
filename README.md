@@ -134,7 +134,7 @@ a workspace runs on its owner's snapshot.
 
 - Every request snapshots the caller's plan into `users.plan`. Members read
   the owner's.
-- Pro is the project owner (`X-Yard-Entitlement: owner`), or an `active` or
+- Pro is the project's team (`X-Yard-Entitlement: team`), or an `active` or
   `trial` entitlement whose tier key is `pro`. That's `PRO_TIER` in
   `web/shared/constants.ts` and `key` on the tier in `.yard/settings.json`.
   Renaming the tier is safe; changing its key makes it a different tier.
@@ -222,7 +222,7 @@ people in and hands the service trusted `X-Yard-*` headers. Locally, a
 
 | Persona     | Who they are                                      |
 | ----------- | ------------------------------------------------- |
-| `member`    | you, the project owner (Pro limits)               |
+| `team`      | you, a team member (Pro limits)                   |
 | `signed-in` | someone who just signed in, without buying (Free) |
 | `user:free` | someone on the Free tier                          |
 | `user:pro`  | a Pro subscriber                                  |

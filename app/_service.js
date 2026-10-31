@@ -99,7 +99,7 @@ var HOUR = 60 * MINUTE;
 var DAY = 24 * HOUR;
 function planOf(headers) {
   const entitlement = headers.get("X-Yard-Entitlement") || "none";
-  if (entitlement === "owner") return "pro";
+  if (entitlement === "team") return "pro";
   if (entitlement !== "active" && entitlement !== "trial") return "free";
   return headers.get("X-Yard-Tier-Key") === PRO_TIER ? "pro" : "free";
 }
