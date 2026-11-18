@@ -30,7 +30,7 @@ GitHub URL** field of the Yard dashboard's Create Project dialog. What it needs
 
 - `service`, for the app and its API.
 - `yard_auth`, to sign people in (the app's access is `authenticated`).
-- `custom_project_pages`, for the landing page.
+- `landing_pages`, for the landing page.
 
 Once it's live:
 
