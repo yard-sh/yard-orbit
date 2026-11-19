@@ -28,9 +28,8 @@ Use the button above, or paste this repository's URL into the **Create from
 GitHub URL** field of the Yard dashboard's Create Project dialog. What it needs
 (`yard me --json`, `.team_permissions`):
 
-- `service`, for the app and its API.
+- `service`, for the landing page, the app and its API.
 - `yard_auth`, to sign people in (the app's access is `authenticated`).
-- `landing_pages`, for the landing page.
 
 Once it's live:
 
